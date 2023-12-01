@@ -2,14 +2,17 @@ import requests
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
+
+
 TOKEN = '6945108849:AAFYOMuzl_zcfer-ayEUK6cf1pD03g5sGwE'
 TMDB_API_KEY = '8dda7f3ce30ee223fbe021932609e9ea'
+
 
 user_ratings = {}
 user_watchlist = {}
 
 def start(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text('Hello! I am your Telegram Bot.')
+    update.message.reply_text('Hello! I am Movie suggestion bot made by @loneworlds, i suggest movies based on the title you gave me which i think might be similar, to know my commands try /help.')
 
 
 def help_command(update: Update, context: CallbackContext) -> None:
@@ -118,7 +121,7 @@ def get_movies_by_genre(genre_id):
     response = requests.get(f'https://api.themoviedb.org/3/discover/movie?api_key={TMDB_API_KEY}&with_genres={genre_id}')
     data = response.json()
     if data and 'results' in data:
-        return [(movie['title'], f"https://www.themoviedb.org/movie/{movie['id']}") for movie in data['results'][:5]]
+        return [(movie['title'], f"https://www.themoviedb.org/movie/{movie['id']}") for movie in data['results'][:8]]
     else:
         return []
 
